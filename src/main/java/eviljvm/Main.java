@@ -11,9 +11,9 @@ public class Main {
 
     public static void premain(String preArgs, Instrumentation inst) {
         Thread t = new Thread(() -> {
+            Map<Long, Long> blockBy = new HashMap<>();
             while (true) {
                 try {
-                    Map<Long, Long> blockBy = new HashMap<>();
                     ThreadMXBean bean = ManagementFactory.getThreadMXBean();
                     long[] threadIds = bean.getAllThreadIds();
                     for (long id : threadIds) {
@@ -43,8 +43,9 @@ public class Main {
                             blockBy.put(min, max);
                         }
                     }
+                    blockBy.clear();
                     Thread.sleep(10000);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

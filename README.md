@@ -1,3 +1,8 @@
+### How it works
+
+Regarding a thread as a vertex in a graph,  and a thread been blocked by another represents an arrow. The out-degree of a vertex <= 1 since a thread can be blocked by only one thread at the moment. In order to determine the dealock, we only need to check whether an cycle exists in the graph.
+
+
 ### Demo
 
 ```
@@ -32,11 +37,11 @@ public static void main(String[] args) throws Exception {
 ```
 
 ```
-    java -javaagent:/path/to/deadlock-checker.jar nopackge.Main
+java -javaagent:/path/to/deadlock-checker.jar nopackge.Main
     
-    Deadlock detected: 
-    Thread-11: (t1) blocked by object java.lang.Object@1f1b3da4 owned by Thread-12: (t2) 
-     at:
-    Thread-12: (t2) blocked by object java.lang.Object@5a19b883 owned by Thread-11: (t1) 
-     at:
+Deadlock detected: 
+Thread-11: (t1) blocked by object java.lang.Object@1f1b3da4 owned by Thread-12: (t2) 
+ at:
+Thread-12: (t2) blocked by object java.lang.Object@5a19b883 owned by Thread-11: (t1) 
+ at:
 ```

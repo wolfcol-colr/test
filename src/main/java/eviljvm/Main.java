@@ -23,7 +23,7 @@ public class Main {
                         }
                         if (info.getLockOwnerId() == id) {
                             System.err.println("Deadlock detected: ");
-                            System.err.println(String.format("%s have been aleady held by the thread %s", info.getLockInfo(), id));
+                            System.err.println(String.format("%s have aleady been held by the thread %s", info.getLockInfo(), id));
                             StackTraceElement[] trace = info.getStackTrace();
                             for (StackTraceElement traceElement : trace)
                                 System.err.println("\t" + traceElement);

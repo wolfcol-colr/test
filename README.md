@@ -1,6 +1,7 @@
 ### How it works
 
-Regarding a thread as a vertex in a graph,  and a thread been blocked by another represents an arrow. The out-degree of a vertex <= 1 since a thread can be blocked by only one thread at the moment. In order to determine the dealock, we only need to check whether an cycle exists in the graph.
+Regarding a thread as a vertex in a graph,  and an arrow from vertex A to vertex B represents the thread A been blocked by the thread B.
+The out-degree of a vertex <= 1 since a thread can be blocked by only one thread at the moment. In order to determine the dealock, we only need to check whether a cycle exists in the graph.
 
 
 ### Demo

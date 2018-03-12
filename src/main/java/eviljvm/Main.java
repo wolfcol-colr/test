@@ -21,9 +21,15 @@ public class Main {
                         if (info.getThreadState() == Thread.State.RUNNABLE || info.getLockOwnerId() == -1) {
                             continue;
                         }
-                        long min = Math.min(id, info.getLockOwnerId());
-                        long max = Math.max(id, info.getLockOwnerId());
-                        if (blockBy.containsKey(min)) {
+                        if (info.getLockOwnerId() == id) {
+                            System.err.println("Deadlock detected: ");
+                            System.err.println(String.format("%s have been aleady held by the thread %s", info.getLockInfo(), id));
+                            StackTraceElement[] trace = info.getStackTrace();
+                            for (StackTraceElement traceElement : trace)
+                                System.err.println("\t" + traceElement);
+                            break;
+                        }
+                        if (blockBy.containsKey(info.getLockOwnerId())) {
                             ThreadInfo blk = info;
                             System.err.println("Deadlock detected: ");
                             do {
@@ -40,7 +46,7 @@ public class Main {
                             } while (blk.getThreadId() != id);
                             break;
                         } else {
-                            blockBy.put(min, max);
+                            blockBy.put(id, info.getLockOwnerId());
                         }
                     }
                     blockBy.clear();

@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eviljvm</groupId>
-    <artifactId>deadlock-detect</artifactId>
-    <version>0.1.0</version>
+    <groupId>we.arthiry</groupId>
+    <artifactId>eviljvm</artifactId>
+    <version>0.0.1-funny</version>
+
     <build>
         <plugins>
             <plugin>
@@ -19,6 +20,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
@@ -33,10 +35,10 @@
                             <appendAssemblyId>false</appendAssemblyId>
                             <archive>
                                 <manifestEntries>
-                                    <premain-class>eviljvm.Main</premain-class>
+                                    <premain-class>eviljvm.DeadlockDetector</premain-class>
                                 </manifestEntries>
                             </archive>
-                            <finalName>deadlock-checker</finalName>
+                            <finalName>deadlock-detector</finalName>
                         </configuration>
                     </execution>
                 </executions>

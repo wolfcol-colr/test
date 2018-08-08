@@ -1,13 +1,14 @@
-package eviljvm;
+package deadlock;
 
 import java.lang.instrument.Instrumentation;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class DeadlockDetector {
 
     public static void premain(String preArgs, Instrumentation inst) {
         Thread t = new Thread(() -> {
@@ -23,10 +24,9 @@ public class Main {
                         }
                         if (info.getLockOwnerId() == id) {
                             System.err.println("Deadlock detected: ");
-                            System.err.println(String.format("%s have aleady been held by the thread %s", info.getLockInfo(), id));
+                            System.err.println(String.format("%s have already been held by the thread %s", info.getLockInfo(), id));
                             StackTraceElement[] trace = info.getStackTrace();
-                            for (StackTraceElement traceElement : trace)
-                                System.err.println("\t" + traceElement);
+                            Arrays.stream(trace).map(ele -> "\t" + ele).forEach(System.err::println);
                             break;
                         }
                         if (blockBy.containsKey(info.getLockOwnerId())) {
@@ -40,8 +40,7 @@ public class Main {
                                         blk.getLockOwnerId(),
                                         blk.getLockOwnerName()));
                                 StackTraceElement[] trace = blk.getStackTrace();
-                                for (StackTraceElement traceElement : trace)
-                                    System.err.println("\t" + traceElement);
+                                Arrays.stream(trace).map(ele -> "\t" + ele).forEach(System.err::println);
                                 blk = bean.getThreadInfo(blk.getLockOwnerId());
                             } while (blk.getThreadId() != id);
                             break;

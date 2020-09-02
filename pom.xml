@@ -8,6 +8,19 @@
     <artifactId>eviljvm</artifactId>
     <version>0.0.1-funny</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
